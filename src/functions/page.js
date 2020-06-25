@@ -16,10 +16,9 @@ const createPagerDutyIncident = async () =>
 
 exports.handler = async (event, context, callback) => {
   const pagerdutyRequest = await createPagerDutyIncident();
-  const json = pagerdutyRequest.json();
 
   return callback(null, {
     statusCode: pagerdutyRequest.statusCode,
-    body: JSON.stringify(json),
+    body: JSON.stringify(pagerdutyRequest),
   });
 };

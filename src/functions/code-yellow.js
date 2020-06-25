@@ -1,31 +1,24 @@
-const pdClient = require('node-pagerduty');
+const pdClient = require("node-pagerduty");
 
-const {
-  PAGERDUTY_TOKEN,
-  PAGERDUTY_FROM,
-  PAGERDUTY_SERVICE_ID
-} = process.env
+const { incidents } = new pdClient(process.env.PAGERDUTY_TOKEN);
 
-const pager = new pdClient(PAGERDUTY_TOKEN);
+const createPagerDutyIncident = async () =>
+    await incidents.createIncident(process.env.PAGERDUTY_EMAIL, {
+      incident: {
+        type: "incident",
+        title: "SIGNS OF LABOUR",
+        service: {
+          id: process.env.PAGERDUTY_SERVICE_ID,
+          type: "service_reference",
+        },
+      },
+    });
 
-exports.handler = async (event, context) => {
-  const { incidents } = pager;
+exports.handler = async (event, context, callback) => {
+  const pagerdutyRequest = await createPagerDutyIncident();
 
-  await incidents.createIncident(PAGERDUTY_FROM,{
-    "incident": {
-      "type": "incident",
-      "title": "[CODE YELLOW] SIGNS OF LABOUR",
-      "service": {
-        "id": PAGERDUTY_SERVICE_ID,
-        "type": "service_reference"
-      }
-    }
+  return callback(null, {
+    statusCode: pagerdutyRequest.statusCode,
+    body: JSON.stringify(pagerdutyRequest),
   });
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      data: 'It worked!'
-    })
-  };
-}
+};

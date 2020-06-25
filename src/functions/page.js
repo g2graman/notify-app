@@ -1,5 +1,5 @@
 exports.handler = async (event, context, callback) => {
-  callback(null, {
+  return callback(null, {
     statusCode: 200,
     body: { message: "it works" },
   });

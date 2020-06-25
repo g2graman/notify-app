@@ -1,6 +1,7 @@
 # Local Netlify folder
 .netlify
 node_modules
+.idea/
 
 # netlify functions build
 /functions

@@ -1,0 +1,14 @@
+[Settings]
+# Added automatically by the Netlify CLI. It has no effect during normal 
+# Git-backed deploys.
+
+[context.deploy-preview.environment]
+  GATSBY_DEPLOY_CONTEXT = "preview"
+
+[context.production.environment]
+  GATSBY_DEPLOY_CONTEXT = "production"
+
+[build]
+  Command = "yarn build"
+  Functions = "functions"
+  Publish = "public"

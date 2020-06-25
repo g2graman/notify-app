@@ -1,5 +1,5 @@
-const button = document.getElementById("notify");
+const codeYellowButton = document.getElementById("code-yellow");
 
-button.addEventListener("click", () => {
-  fetch("/.netlify/functions/page");
+codeYellowButton.addEventListener("click", () => {
+  fetch("/.netlify/functions/code-yellow");
 });
